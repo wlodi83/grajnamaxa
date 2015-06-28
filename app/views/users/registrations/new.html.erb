@@ -1,0 +1,113 @@
+<div class="page-header">
+  <h4>Zarejestruj się, to łatwe i darmowe</h4>
+</div>
+
+<div class="well">
+<p class="text-right">Jesteś już zarejestrowany?
+<%- if controller_name != 'sessions' %>
+  <%= link_to "Zaloguj się", new_session_path(resource_name) %><br />
+<% end -%>
+</p>
+<div class="page-header">
+  <h4>Połącz się z serwisem za pomocą</h4>
+</div>
+
+<div class = "row">
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-lg btn-facebook") do %>
+    Facebook'a <i class="fa fa-facebook"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-lg btn-twitter") do %>
+    Twitter'a <i class="fa fa-twitter"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-lg btn-google-plus") do %>
+    Google'a <i class="fa fa-google-plus"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:nk), class: "btn btn-block btn-social btn-lg btn-vk") do %>
+    Nasza Klasa</i>
+  <% end %>
+  </div>
+</div>
+
+<div class="page-header">
+  <h4>Zarejestruj sie za pomocą adresu email</h4>
+</div>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal" }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="form-group">
+    <label for="inputUsername" class="col-sm-2 control-label">Nazwa Użytkownika</label>
+    <div class="col-sm-10">
+      <%= f.text_field :username, autofocus: true, class: "form-control", placeholder: "wpisz swoja nazwe użytkownika" %>
+      <span id="helpBlock" class="help-block">Od 3 do 200 znakow. Dozwolona kombinacja liter i cyfr.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
+    <div class="col-sm-10">
+      <%= f.email_field :email, class: "form-control", placeholder: "wpisz swoj adres e-mail" %>
+      <span id="helpBlock" class="help-block">np. przyklad@domena.pl</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAvatar" class="col-sm-2 control-label">Avatar</label>
+    <div class="col-sm-10">
+      <%= f.file_field :avatar %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputGender" class="col-sm-2 control-label">Płeć</label>
+    <div class="col-sm-10">
+    <label class="radio-inline">
+      <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Kobieta" %>
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :is_female, false %> <%= f.label :is_female, "Mężczyzna" %>
+    </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputDateOfBirth" class="col-sm-2 control-label">Data urodzenia</label>
+    <div class="col-sm-10">
+       <%= f.date_select :date_of_birth, start_year: Date.current.year, end_year: 1920 %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Hasło</label>
+    <div class="col-sm-10">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "wpisz swoje hasło" %>
+    <span id="helpBlock" class="help-block">
+      <% if @validatable %>(<%= @minimum_password_length %> znakow minimum)<% end %>
+    </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPasswordConfirmation" class="col-sm-2 control-label">Potwierdź hasło</label>
+    <div class="col-sm-10">
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "potwierdź swoje hasło" %>
+    </div>
+  </div>
+  <hr></hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Rejestracja", class: "btn btn-primary" %>
+      <br />
+      <small>Klikając przycisk "Rejestracja" przeczytałeś i zgadzasz się z <%= link_to "Warunki korzystania z Serwisu", terms_of_use_url %>.</small>
+    </div>
+  </div>
+<% end %>
+<div class="page-header"></div>
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Nie otrzymałeś instrukcji potwierdzenia konta?", new_confirmation_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "Nie otrzymałeś instrukcji odblokowania konta?", new_unlock_path(resource_name) %><br />
+<% end -%>
+</div>

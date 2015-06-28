@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><p class="text-center">Nazwa Kategorii</p></th>
+        <th><p class="text-center">Skrocona Nazwa Kategorii</p></th>
+        <th><p class="text-center">Utworzono</p></th>
+        <th><p class="text-center">Zarzadzanie</p></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= link_to category.name, category_url(category) %></td>
+        <td><%= category.short_name %></td>
+        <td><%= time_ago_in_words(category.created_at) %></td>
+        <td>
+          <%= link_to 'EDYTUJ', edit_category_url(category), class: "btn btn-primary" %>
+          <%= link_to 'USUN', category, method: :delete, data: { confirm: 'Czy napewno usuna?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @categories %>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= full_title(yield(:title)) %></title>
+  <meta name="description" content="<%= meta_description(yield(:description)) %>">
+  <meta name="keywords" content="<%= meta_keywords(yield(:keyword)) %>">
+  <meta property="og:image" content="<%= yield(:facebook_image) %>" /> 
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <!-- 7c2ee841232632254ed2d13736dcfd74 -->
+</head>
+<body>
+  <div id="fb-root"></div>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to(root_path, class: "navbar-brand") do %>
+        <p class="label label-danger">Graj Na Maxa</p>
+      <% end %>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Najlepsze Gry', games_path(param: 'best_games') %></li>
+          <li><%= link_to 'Nowe Gry', games_path(param: 'new_games') %></li>
+          <li>
+            <%= link_to games_path(param: 'mobile') do %>
+              <i class="fa fa-mobile"></i> Gry Mobilne
+            <% end %>
+          </li>
+          <li><%= link_to 'Użytkownicy', users_path %></li>
+        </ul>
+        <%= form_tag search_games_path, method: :get, class: "navbar-form navbar-left" do |f| %>
+        <div class="form-group">
+        <%= text_field_tag :query, params[:query],
+                               class: "form-control",
+                               placeholder: "Wpisz tytuł gry" %>
+        </div>
+        <%= button_tag 'Szukaj', type: "submit", class: "btn btn-default" %>
+        <% end %>
+
+        <% if current_user %>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+            <%= link_to points_user_url(current_user) do%> 
+              Punkty: <span class="badge"><%= current_user.points %></span>
+            <% end %>
+            </li>
+            <li><%= link_to 'Edytuj Profil', edit_user_registration_path %></li>
+            <li><%= link_to 'Wyloguj', destroy_user_session_path, method: :delete %></li>
+            <li class="round-image-50"><%= image_tag(current_user.avatar.url(:thumb)) %></li>
+          </ul>
+        <% else %>
+        <div class="pull-right">
+          <%= button_to("Zarejestruj się za darmo", new_user_registration_path,
+                                        form_class: "navbar-form navbar-left",
+                                        class: "btn btn-primary",
+                                        method: :get) %>
+          <%= button_to("Zaloguj się", new_user_session_path,
+                                        form_class: "navbar-form navbar-left",
+                                        class: "btn btn-success",
+                                        method: :get) %>
+        </div>
+        <% end %>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <%= render 'layouts/menu' %>
+      <p>KATEGORIE</p>
+      <ul class='list-group'>
+        <% Category.all.each do |category| %>
+          <li class='list-group-item'>
+            <span class="badge"><%= category.games.where(published: true).count %></span>
+            <%= link_to category.short_name, category_path(category) %></li>
+        <% end %>
+      </ul>
+      <div class="panel panel-info">
+      <!-- Default panel contents -->
+        <div class="panel-heading">Social Media</div>
+        <div class="panel-body">
+        <div class="fb-like" data-href="https://www.facebook.com/pages/Graj-Na-Maxa/807252712639800?fref=ts" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        <br /><br />
+        <a href="https://twitter.com/grajnamaxa" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true" data-lang="pl">Follow @grajnamaxa</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="text-center">
+      <h6><small>Reklama</small></h6>
+      <script charset="utf-8" type="text/javascript">
+      //<![CDATA[
+      var subid = '';
+      var ref = document.referrer;var af_u = (location.protocol=="https:"?"https":"http") + "://adserwer.afilo.pl/771552e62858194c/s.js";var af_r = Math.floor(Math.random()*99999999999);document.writeln ("<scr"+"ipt charset='utf-8' type='text/javascript' src='"+af_u);document.writeln('?af=' + af_r);try {document.writeln ("&amp;loc=" + escape(window.top.location.host));} catch(err) {document.writeln ("&amp;loc=" + escape(window.location.host) + "_nn");} if(ref){document.writeln ("&amp;ref=" + escape(ref)); } else {document.writeln ("&amp;ref=na");} if(typeof subid == 'undefined'){var subid = '';} if(subid){ document.writeln("&amp;subid="+escape(subid));} document.writeln ("'><\/scr"+"ipt>");
+      //]]>
+      </script>
+      </div>
+      <hr>
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+    </div>
+  </div>
+  <br />
+  <footer class="footer">
+    <div class="well">
+    <p class="text-center">DARMOWE GRY ONLINE NA GRAJNAMAXA.PL!</p>
+    <p class="text-center">
+      <%= link_to "Warunki korzystania z witryny", terms_of_use_path %> |
+      <%= link_to "Polityka prywatności", privacy_policy_path %> |
+      <%= link_to "Informacje dla rodziców", for_parents_path %> |
+      <%= link_to "O nas", about_path %> |
+      <%= link_to "Pomoc i kontakt", new_contact_path %>
+    </p>
+    <p class="text-center">
+      <%= link_to("https://www.facebook.com/pages/Graj-Na-Maxa/807252712639800") do %>
+        <i class="fa fa-facebook-official"></i>
+      <% end %> |
+      <%= link_to("https://twitter.com/grajnamaxa") do %>
+        <i class="fa fa-twitter"></i>
+      <% end %>
+    </p>
+  </div>
+  </footer>
+  </div>
+</body>
+</html>

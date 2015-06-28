@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h4>Wyślij ponownie instrukcje odblokowania konta</h4>
+</div>
+<div class="well">
+
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "form-horizontal" }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
+    <div class="col-sm-10">
+      <%= f.email_field :email, autofocus: true ,class: "form-control", placeholder: "wpisz swoj adres e-mail" %>
+      <span id="helpBlock" class="help-block">np. przyklad@domena.pl</span>
+    </div>
+  </div>
+  <hr></hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Wyślij instrukcje odblokowania konta", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="page-header"></div>
+<%= render "users/shared/links" %>
+</div>

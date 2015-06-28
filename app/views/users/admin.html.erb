@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><p class="text-center">Avatar</p></th>
+        <th><p class="text-center">Nazwa Użytkownika</p></th>
+        <th><p class="text-center">E-Mail</p></th>
+        <th><p class="text-center">Płeć</p></th>
+        <th><p class="text-center">Data urodzenia</p></th>
+        <th><p class="text-center">Provider</p></th>
+        <th><p class="text-center">Potwierdzenie konta</p></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><div class="round-image-50"><%= image_tag(user.avatar.url(:thumb)) %></div></td>
+        <td><%= link_to user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.is_female ? 'Kobieta' : 'Mężczyzna' %></td>
+        <td><%= user.date_of_birth %></td>
+        <td><%= user.provider %></td>
+        <td><%= user.confirmed_at.blank? ? 'niepotwierdzony' : time_ago_in_words(user.confirmed_at) + " temu" %></td>
+        <td><%= link_to 'USUŃ', user, method: :delete, data: { confirm: 'Czy napewno usunąć?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @users %>

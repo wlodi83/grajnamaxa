@@ -1,0 +1,78 @@
+<div class="well">
+<div class="page-header">
+  <h4>Edycja Profilu Uzytkownika</h4>
+</div>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-horizontal" }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="form-group">
+    <label for="inputUsername" class="col-sm-2 control-label">Nazwa Uzytkownika</label>
+    <div class="col-sm-10">
+      <%= f.text_field :username, autofocus: true, class: "form-control", placeholder: "wpisz swoja nazwe uzytkownika" %>
+      <span id="helpBlock" class="help-block">Od 3 do 200 znakow. Dozwolona kombinacja liter i cyfr.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">E-Mail</label>
+    <div class="col-sm-10">
+      <%= f.email_field :email, class: "form-control", placeholder: "wpisz swoj adres e-mail" %>
+      <span id="helpBlock" class="help-block">np. przyklad@domena.pl</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAvatar" class="col-sm-2 control-label">Avatar</label>
+    <div class="col-sm-10">
+      <%= f.file_field :avatar %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputGender" class="col-sm-2 control-label">Plec</label>
+    <div class="col-sm-10">
+    <label class="radio-inline">
+      <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Kobieta" %>
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :is_female, false %> <%= f.label :is_female, "Mezczyzna" %>
+    </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputDateOfBirth" class="col-sm-2 control-label">Data urodzenia</label>
+    <div class="col-sm-10">
+       <%= f.date_select :date_of_birth, start_year: Date.current.year, end_year: 1920 %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Haslo</label>
+    <div class="col-sm-10">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "wpisz swoje haslo" %>
+    <span id="helpBlock" class="help-block">
+      <% if @validatable %>(<%= @minimum_password_length %> znakow minimum)<% end %>
+    </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPasswordConfirmation" class="col-sm-2 control-label">Potwierdz haslo</label>
+    <div class="col-sm-10">
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "potwierdz swoje haslo" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputCurrentPassword" class="col-sm-2 control-label">Aktualne Haslo</label>
+    <div class="col-sm-10">
+      <%= f.password_field :current_password, autocomplete: "off", class: "form-control", placeholder: "wpisz swoje aktualne haslo" %>
+      <span id="helpBlock" class="help-block">
+      (potrzebujemy Twoje aktualne w celu potwierdzenia zmian danych w profilu)
+    </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Zapisz zmiany", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="page-header"></div>
+
+<p>Jestes niezadowolony? <%= button_to "Anuluj moje konto", registration_path(resource_name), data: { confirm: "Czy napewno chcesz anulowac konto?" }, method: :delete %></p>
+</div>

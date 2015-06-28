@@ -1,0 +1,99 @@
+<%= form_for @game, html: { multipart: true, class: "form-horizontal" } do |f| %>
+  <% if @game.errors.any? %>
+    <%= render 'layouts/errors', object: @game %>
+  <% end %>
+
+  <div class="form-group">
+    <label for="inputTitle" class="col-sm-2 control-label">Tytuł</label>
+    <div class="col-sm-10">
+      <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "wpisz tytuł gry" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputDeveloperName" class="col-sm-2 control-label">Deweloper Gry:</label>
+    <div class="col-sm-10">
+      <%= f.text_field :developer_name, class: "form-control", placeholder: "wpisz nazwę dewelpera gry" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPorvider" class="col-sm-2 control-label">Provider Gry:</label>
+    <div class="col-sm-10">
+      <%= f.text_field :provider, class: "form-control", placeholder: "wpisz nazwę providera gry" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputDescription" class="col-sm-2 control-label">Opis</label>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: "form-control", placeholder: "opisz krotko gre" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputInstruction" class="col-sm-2 control-label">Instrukcje</label>
+    <div class="col-sm-10">
+      <%= f.text_area :instruction, class: "form-control", placeholder: "opisz instrukcje gry i jak w nia grac" %>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="inputIsMobile" class="col-sm-2 control-label">Gra Mobilna?</label>
+    <div class="col-sm-10">
+      <%= f.check_box :is_mobile, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAppleStoreUrl" class="col-sm-2 control-label">Link do Apple Store:</label>
+    <div class="col-sm-10">
+      <%= f.text_field :apple_store_url, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAppleStoreUrl" class="col-sm-2 control-label">Link do Google Play:</label>
+    <div class="col-sm-10">
+      <%= f.text_field :google_play_url, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="inputHasYoutube" class="col-sm-2 control-label">YouTube Video?</label>
+    <div class="col-sm-10">
+      <%= f.check_box :has_youtube, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputYoutubeUrl" class="col-sm-2 control-label">Link do YouTube:</label>
+    <div class="col-sm-10">
+      <%= f.text_field :youtube_url, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="inputSource" class="col-sm-2 control-label">Kod Zrodlowy</label>
+    <div class="col-sm-10">
+      <%= f.text_area :source, class: "form-control", placeholder: "wklej kod zrodlowy gry" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputScreen" class="col-sm-2 control-label">Screen</label>
+    <div class="col-sm-10">
+      <%= f.file_field :screen %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputTags" class="col-sm-2 control-label">Tagi</label>
+    <div class="col-sm-10">
+      <%= f.text_field :tag_list, value: @game.tag_list.to_s, class: "form-control", placeholder: "wpisz tagi, oddzielone przecinkami" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputCategory" class="col-sm-2 control-label">Kategoria</label>
+    <div class="col-sm-10">
+      <%= f.select :category_id, Category.all.collect {|c| [c.name, c.id]}, {prompt: 'Wybierz Kategorie'} %>
+    </div>
+  </div>
+  <hr></hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

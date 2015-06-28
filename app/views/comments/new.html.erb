@@ -1,0 +1,7 @@
+<div class="page-header">
+  <h1>Komentujesz grę <small><%= @game.title %></small></h1>
+</div>
+<% if @comment.parent %>
+  <%= render 'comment', comment: @comment.parent, from_reply_form: true %>
+<% end %>
+<%= render 'form' %>

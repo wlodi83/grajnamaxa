@@ -1,0 +1,33 @@
+<ol class="breadcrumb">
+  <%= render_breadcrumbs :tag => :li, :separator => "" %>
+</ol>
+<div class="page-header">
+  <h3>Użytkownicy <span class="label label-info"><%= User.count %></span></h3>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Nazwa Użytkownika</th>
+        <th>Komentarzy</th>
+        <th>Gier ocenionych</th>
+        <th>Punkty</th>
+        <th>W serwisie od</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><div class="round-image-50"><%= image_tag(user.avatar.url(:thumb)) %></div></td>
+        <td><%= link_to user.username %></td>
+        <td><%= user.amount_of_comments %></td>
+        <td><%= user.ratings_given.count %></td>
+        <td><%= user.points %></td>
+        <td><%= user.created_at.localtime.strftime('%e-%m-%Y %H:%M') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @users %>

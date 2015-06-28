@@ -1,0 +1,11 @@
+<% if user_signed_in? and current_user.admin? %>
+<p>MENU</p>
+<ul class='list-group'>
+  <li class='list-group-item'><%= link_to 'Dodaj grę', new_game_path %></li>
+  <li class='list-group-item'><%= link_to 'Dodaj kategorię', new_category_path %></li>
+  <li class='list-group-item'><%= link_to 'Lista gier', admin_games_path %></li>
+  <li class='list-group-item'><%= link_to 'Lista kategorii', categories_path %></li>
+  <li class='list-group-item'><%= link_to 'Lista użytkowników', admin_users_path %></li>
+  <li class='list-group-item'><%= link_to 'Lista komentarzy', comments_path %></li>
+</ul>
+<% end %>

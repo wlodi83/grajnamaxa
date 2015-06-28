@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><p class="text-center">Tytul</p></th>
+        <th><p class="text-center">Opis</p></th>
+        <th><p class="text-center">Utworzono</p></th>
+        <th><p class="text-center">Opublikowano?</p></th>
+        <th><p class="text-center">Zarzadzanie</p></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @games.each do |game| %>
+      <tr>
+        <td><%= link_to game.title, game_url(game) %></td>
+        <td><%= truncate(game.description, length: 50) %></td>
+        <td><%= time_ago_in_words(game.created_at) %></td>
+        <td><p class="text-center"><%= game.published ? 'TAK' : 'NIE' %></p></td>
+        <td>
+          <%= link_to 'EDYTUJ', edit_game_url(game), class: "btn btn-primary" %>
+          <% if game.published? %>
+          <%= link_to 'UKRYJ', unpublish_game_url(game), class: "btn btn-info" %>
+          <% else %>
+          <%= link_to 'PUBLIKUJ', publish_game_url(game), class: "btn btn-info" %>
+          <% end %>
+          <%= link_to 'USUŃ', game, method: :delete, data: { confirm: 'Czy napewno usunąć?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @games %>

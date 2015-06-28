@@ -1,0 +1,18 @@
+<div class="well">
+  <% if comment.user_id %>
+  <div class="round-image-50"><%= image_tag(comment.user.avatar.url(:thumb)) %></div>
+  <br/>
+  <% end %>
+  <p class="text-muted"><%= comment.root? ? "Dodany przez: " : "Odpowiedział: " %><strong><%= comment.author %></strong> 
+    <%= l(comment.created_at, format: '%B, %d %Y %H:%M:%S') %></p>
+  <blockquote>
+    <p><%= comment.body %></p>
+  </blockquote>
+  <% from_reply_form ||= nil %>
+  <% unless from_reply_form %>
+    <% if comment.leaf? %>
+      <small class="text-muted">Ten komentarz nie ma jeszcze odpowiedzi, możesz być pierwszy!</small>
+    <% end %>
+    <p><%= link_to 'odpowiedz', game_new_comment_path(@game, comment.id) %></p>
+  <% end %>
+</div>

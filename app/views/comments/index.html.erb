@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><p class="text-center">Imię/Nick</p></th>
+        <th><p class="text-center">Treść komentarza</p></th>
+        <th><p class="text-center">Gra</p></th>
+        <th><p class="text-center">Dodano</p></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.author %></td>
+        <td><%= comment.body %></td>
+        <td><%= link_to comment.game.title, game_path(comment.game) %></td>
+        <td><%= time_ago_in_words(comment.created_at) %></td>
+        <td>
+          <%= link_to 'USUŃ', comment, method: :delete, data: { confirm: 'Czy napewno usunąć?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @comments %>

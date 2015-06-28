@@ -1,0 +1,78 @@
+<div class="well">
+<p class="text-right">Nie masz jeszcze konta?
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "Zarejestruj się", new_registration_path(resource_name) %><br />
+<% end -%>
+</p>
+<div class="page-header">
+  <h4>Połącz się z serwisem za pomocą</h4>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-lg btn-facebook") do %>
+    Facebook'a <i class="fa fa-facebook"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-lg btn-twitter") do %>
+    Twitter'a <i class="fa fa-twitter"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-lg btn-google-plus") do %>
+    Google'a <i class="fa fa-google-plus"></i>
+  <% end %>
+  </div>
+  <div class="col-md-3">
+  <%= link_to(user_omniauth_authorize_path(:nk), class: "btn btn-block btn-social btn-lg btn-vk") do %>
+    Nasza Klasa</i>
+  <% end %>
+  </div>
+</div>
+
+<div class="page-header">
+  <h4>Logowanie</h4>
+</div>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" } ) do |f| %>
+  <div class="form-group">
+    <label for="inputLogin" class="col-sm-2 control-label">Nazwa Uzytkownika lub adres E-Mail</label>
+    <div class="col-sm-10">
+      <%= f.text_field :login, autofocus: true, class: "form-control", placeholder: "wpisz swoja nazwe uzytkownika lub adres E-Mail" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Haslo</label>
+    <div class="col-sm-10">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "wpisz swoje haslo" %>
+    </div>
+  </div>
+  <% if devise_mapping.rememberable? -%>
+  <div class="form-group">
+    <label for="remember" class="col-sm-2 control-label"></label>
+    <div class="col-sm-10">
+      <%= f.check_box :remember_me %>&nbsp;<%= f.label :remember_me, 'Zapamietaj' %>
+    </div>
+  </div>
+  <% end -%>
+  <hr></hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Logowanie", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="page-header"></div>
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Zapomniałeś hasło?", new_password_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Nie otrzymałeś instrukcji aktywacji konta?", new_confirmation_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "Nie otrzymałeś instrukcji odblokowania konta?", new_unlock_path(resource_name) %><br />
+<% end -%>
+</div>

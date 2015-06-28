@@ -1,0 +1,85 @@
+<% provide(:title, @game.title) %>
+<% provide(:description, "Za darmo gra #{@game.title}. - #{@game.description}") %>
+<% provide(:keyword, "#{@game.title}, za darmo online gra #{@game.title}, za darmo gra #{@game.title}, online gra #{@game.title}, super gra #{@game.title}") %>
+<% provide(:facebook_image, "#{@game.screen.url(:normal)}") %>
+<ol class="breadcrumb">
+  <%= render_breadcrumbs :tag => :li, :separator => "" %>
+</ol>
+<div class="page-header">
+  <h3><%= @game.title %></h3>
+</div>
+<% if !@game.source.empty? %>
+<div class="text-center">
+  <%= raw @game.source %>
+</div>
+<hr />
+<% end %>
+<% if @game.is_mobile? %>
+<div class="text-center">
+<!-- apple store button -->
+<%= link_to @game.apple_store_url, class: "btn btn-primary btn-lg", role: "button" do %>
+  <small>Gra dostępna na</small><br><strong>App Store</strong>
+<% end %>
+<!-- google play button -->
+<%= link_to @game.google_play_url, class: "btn btn-warning btn-lg", role: "button" do %>
+  <small>Gra dostępna na</small><br><strong>Google Play</strong>
+<% end %>
+</div>
+<hr/>
+<% end %>
+<% if @game.has_youtube? %>
+<!-- 16:9 aspect ratio -->
+<div class="embed-responsive embed-responsive-16by9">
+  <%= raw embed(@game.youtube_url) %>
+</div>
+<hr/>
+<% end %>
+<div class="text-center">
+  <nav class="share">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="grajnamaxa" data-lang="pl">Tweetnij</a>
+    <div class="fb-share-button" data-href="<%= request.original_url %>" data-layout="button_count"></div>
+  </nav>
+</div>
+<br />
+<div class="row">
+<div class="col-md-3">
+<% if current_user && current_user.ratings_given.empty? %>
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <h5>Oceń grę:</h5>
+    <%= rating_for @game, "rating", disable_after_rate: true, cancel_hint: "Wyłącz głosowanie!", target: '#hintDiv', targetFormat: "<h5>Ocena: {score}</h5>" %>
+    <div id="hintDiv"></div>
+  </div>
+</div>
+<% end %>
+</div>
+</div>
+<div class="well">
+<b><%= rating_for @game, "rating", disable_after_rate: true, imdb_avg: true %></b>
+<br />
+<p>Liczba glosow: <b><%= @game.rates("rating").count %></b>
+  | Dodano: <b><%= time_ago_in_words(@game.created_at) %></b> temu przez: <b><%= User.find_username(@game.user_id) %></b> <% if @game.developer_name %> | Deweloper gry: <b><%= @game.developer_name %></b><% end %>
+</p>
+<hr></hr>
+<p><%= raw tags(@game) %></p>
+<hr></hr>
+<h5>Opis:</h5>
+<p><%= raw @game.description %></p>
+<hr></hr>
+<h5>Instrukcje:</h5>
+<p><%= raw @game.instruction %></p>
+<hr></hr>
+<h5>Screen z gry:</h5>
+<%= image_tag(@game.screen.url(:thumb), class: 'img-thumbnail') %>
+</div>
+<div class="jumbotron">
+  <div class="container">
+    <h3>Dołącz do dyskusji</h3>
+    <p>Kliknij przycisk poniżej, aby rozpocząć nowy wątek:</p>
+    <p>
+      <%= link_to 'Dodaj komentarz', new_game_comment_path(@game), class: 'btn btn-primary btn-lg' %>
+    </p>
+  </div>
+</div>
+<div class="well well-sm">Liczba komentarzy: <span class="badge"><%= @game.amount_of_comments %></span></div>
+<%= comments_tree_for @comments %>

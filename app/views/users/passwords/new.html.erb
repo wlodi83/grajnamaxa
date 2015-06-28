@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h4>Zapomniałeś hasło?</h4>
+</div>
+<div class="well">
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-horizontal" }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="form-group">
+    <label for="inputUsername" class="col-sm-2 control-label">Nazwa Uzytkownika</label>
+    <div class="col-sm-10">
+      <%= f.text_field :username, autofocus: true, class: "form-control", placeholder: "wpisz swoja nazwe uzytkownika" %>
+    </div>
+  </div>
+  <hr></hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Wyślij mi instrukcję resetowania hasła", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="page-header"></div>
+<%= render "users/shared/links" %>
+</div>

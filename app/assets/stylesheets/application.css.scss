@@ -1,0 +1,35 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "bootstrap-social";
+
+.round-image-50 {
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    text-align: center;
+    img { width: 100% }
+}
+
+nav.share {display:inline-block;} /* shareable's nav tag */
+nav.share div {float:left;}
+nav.share iframe {border:0; margin-top:0; padding-top:0;} /* if using medium sized buttons */
+#___plusone_0 {font-size: default !important;}
+.fb_iframe_widget span { vertical-align: top; margin-right: 15px;}
+.fb_edge_widget_with_comment { vertical-align: top;}
+.fb-like{display:inline-block}
+* html .fb-like{display:inline}/* ie6 inline block fix*/
+*+html .fb-like{display:inline}/* ie7 inline block fix*/
+
+.replies {margin-left: 50px;}
+
+.fb-like-box, .fb-like-box span, .fb-like-box span iframe[style] {
+  width: 100% !important;
+}
